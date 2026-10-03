@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>You're invited &ndash; Pet OS</title>
+<meta name="description" content="A friend invited you to Pet OS, the senior dog care app.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+<style>.code{font:700 28px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-align:center;border:2px dashed var(--line);border-radius:14px;padding:16px;margin:16px 0;user-select:all}
+ol.steps li{margin:8px 0}button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:8px 18px;cursor:pointer}</style>
+</head><body>
+<header class="site"><div class="in"><a class="brand" href="index.html">Pet OS</a></div></header>
+<main><article>
+<h1>You&rsquo;re invited to Pet OS</h1>
+<p class="meta">Health tracking and care for senior dogs, shared with your whole family.</p>
+<div id="has-code" hidden>
+<p>Your friend&rsquo;s invite code:</p>
+<div class="code" id="code"></div>
+<p style="text-align:center"><button id="copy" type="button">Copy code</button></p>
+</div>
+<ol class="steps">
+<li>Install <strong>Pet OS</strong> from the App Store (iPhone) or Google Play (Android).</li>
+<li>Sign up and start creating your family.</li>
+<li>Enter the invite code in the <em>Invite code</em> field. Your friend earns a reward once you start a paid plan, and the in-app Offers &amp; Referrals screen shows what you get.</li>
+</ol>
+<p class="meta">Rewards follow the <a href="subscription-and-refund-policy.html">Subscription &amp; Refund Policy</a>.</p>
+</article></main>
+<script>
+(function () {
+  var code = (new URLSearchParams(location.search).get('code') || '').replace(/[^A-Za-z0-9-]/g, '').slice(0, 32).toUpperCase();
+  if (!code) return;
+  document.getElementById('code').textContent = code;
+  document.getElementById('has-code').hidden = false;
+  var btn = document.getElementById('copy');
+  btn.addEventListener('click', function () {
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText(code).then(function () { btn.textContent = 'Copied'; }, function () {});
+  });
+})();
+</script>
+</body></html>
