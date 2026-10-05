@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Join a family &ndash; Pet OS</title>
+<meta name="description" content="You've been invited to help care for a pet on Pet OS.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+<style>ol.steps li{margin:8px 0}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+a.btn{display:inline-block;font:inherit;font-weight:600;text-decoration:none;border-radius:999px;padding:12px 22px;border:1px solid var(--line);color:var(--text);background:var(--card)}
+a.btn.primary{background:#00433C;border-color:#00433C;color:#fff}
+[hidden]{display:none!important}</style>
+</head><body>
+<header class="site"><div class="in"><a class="brand" href="index.html">Pet OS</a></div></header>
+<main><article>
+<h1>You&rsquo;re invited to join a family on Pet OS</h1>
+<p class="meta">Share medications, meals, vet visits and daily care for a pet with the people who look after them.</p>
+
+<div class="actions">
+  <a class="btn primary" id="open" href="petos://app/join">Open Pet OS</a>
+  <a class="btn" id="ios" hidden>Download on the App Store</a>
+  <a class="btn" id="android" hidden>Get it on Google Play</a>
+</div>
+<p id="soon" hidden>Pet OS is not in this store yet. Ask the person who invited you for a test build, or check back soon.</p>
+
+<h2>How to join</h2>
+<ol class="steps">
+<li>Install Pet OS and open it.</li>
+<li>Sign up or sign in with <strong>the email address your invitation was sent to</strong>.</li>
+<li>Accept the invitation shown in the app.</li>
+</ol>
+<p class="meta">Invitations expire after 7 days. If yours has expired, ask for a new one.</p>
+</article></main>
+<script>
+(function () {
+  // Store listings. Fill in APP_STORE_ID (the numeric Apple ID from
+  // App Store Connect > App Information) once the app is live.
+  var APP_STORE_ID = '';
+  var PLAY_PACKAGE = 'com.petos.pettracker';
+  var PLAY_LIVE = false; // set to true once the Play listing is published
+
+  var ua = navigator.userAgent || '';
+  var isAndroid = /Android/i.test(ua);
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  var iosUrl = APP_STORE_ID ? 'https://apps.apple.com/app/id' + APP_STORE_ID : '';
+  var androidUrl = PLAY_LIVE ? 'https://play.google.com/store/apps/details?id=' + PLAY_PACKAGE : '';
+
+  function show(id, url) {
+    var el = document.getElementById(id);
+    if (!url) return false;
+    el.href = url;
+    el.hidden = false;
+    return true;
+  }
+
+  // Phones see their own store; computers see both.
+  var storeUrl = isIOS ? iosUrl : isAndroid ? androidUrl : '';
+  var anyStore = false;
+  if (!isAndroid) anyStore = show('ios', iosUrl) || anyStore;
+  if (!isIOS) anyStore = show('android', androidUrl) || anyStore;
+  if (!anyStore) document.getElementById('soon').hidden = false;
+  if (!isIOS && !isAndroid) document.getElementById('open').hidden = true;
+
+  // On a phone, try the app first; if it is not installed the page stays
+  // visible, so send the visitor on to the store.
+  if ((isIOS || isAndroid) && storeUrl) {
+    var left = false;
+    document.addEventListener('visibilitychange', function () { if (document.hidden) left = true; });
+    window.location.href = 'petos://app/join';
+    setTimeout(function () { if (!left) window.location.href = storeUrl; }, 1800);
+  }
+})();
+</script>
+<footer><div class="in"><a href="privacy-policy.html">Privacy</a> &middot; <a href="terms-of-service.html">Terms</a> &middot; <a href="contact.html">Contact</a></div></footer>
+</body></html>

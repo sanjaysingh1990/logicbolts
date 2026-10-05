@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.petos.pettracker",
+      "sha256_cert_fingerprints": [
+        "6C:32:3A:E4:D0:00:5A:95:DB:F0:FA:EE:F5:7D:89:05:F8:9A:F6:AF:D2:DA:83:5C:77:9E:48:17:71:0C:6C:EA"
+      ]
+    }
+  }
+]

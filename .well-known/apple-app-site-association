@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["Q729ZX34G5.com.petos.pettracker"],
+        "components": [
+          { "/": "/apps/petos/join.html", "comment": "Pet OS family invitation link (custom domain)" },
+          { "/": "/apps/petos/join", "comment": "Same link without the extension" },
+          { "/": "/logicbolts/apps/petos/join.html", "comment": "Same link on the github.io address" },
+          { "/": "/logicbolts/apps/petos/join", "comment": "Same link on the github.io address, no extension" }
+        ]
+      }
+    ]
+  }
+}
